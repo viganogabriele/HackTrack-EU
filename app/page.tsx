@@ -98,7 +98,7 @@ export default function Home() {
 function TranslatedHeader() {
   const { t } = useTranslation();
   return (
-    <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
+    <div className="hero-panel flex flex-col items-start justify-between gap-4 rounded-2xl p-6 md:flex-row md:items-center md:p-8">
       <div>
         <h1 className="text-glow-gradient mb-3 text-3xl font-bold tracking-tight md:text-4xl">
           {t("title")}

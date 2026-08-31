@@ -191,7 +191,7 @@ export default function HackathonList({
             <>
               <Button
                 asChild
-                className="from-primary to-chart-3 w-full bg-gradient-to-r hover:opacity-90"
+                className="from-primary to-chart-3 w-full rounded-full bg-gradient-to-r font-semibold hover:opacity-90"
               >
                 <Link
                   href={hackathon.url}

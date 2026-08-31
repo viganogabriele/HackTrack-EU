@@ -583,7 +583,7 @@ export default function Sidebar({
       <MobileCollapsedSidebar onOpen={setMobileOpen} />
 
       {/* Desktop sidebar */}
-      <aside className="border-sidebar-border bg-sidebar text-sidebar-foreground fixed top-0 left-0 z-40 hidden h-screen w-64 flex-col border-r md:flex">
+      <aside className="border-sidebar-border bg-sidebar text-sidebar-foreground nav-glow fixed top-0 left-0 z-40 hidden h-screen w-64 flex-col border-r md:flex">
         <ScrollArea className="min-h-0 flex-1" viewportClassName="p-6">
           <div className="space-y-6">
             <SidebarContent
@@ -607,7 +607,7 @@ export default function Sidebar({
           />
 
           {/* Sidebar */}
-          <aside className="border-sidebar-border bg-sidebar text-sidebar-foreground animate-in slide-in-from-left fixed top-0 left-0 z-50 flex h-full w-80 flex-col border-r duration-300 md:hidden">
+          <aside className="border-sidebar-border bg-sidebar text-sidebar-foreground nav-glow animate-in slide-in-from-left fixed top-0 left-0 z-50 flex h-full w-80 flex-col border-r duration-300 md:hidden">
             <ScrollArea className="min-h-0 flex-1" viewportClassName="p-6">
               <div className="space-y-6">
                 <SidebarContent

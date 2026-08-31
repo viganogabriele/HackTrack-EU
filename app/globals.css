@@ -198,9 +198,10 @@
   }
 }
 
-/* Ambient decorative background: two blurred halos driven by the active
-   theme's primary/chart-5 accents, so it stays coherent across every
-   color theme rather than a hardcoded palette. Purely decorative. */
+/* Ambient decorative background: a dominant top-center spotlight plus a
+   smaller secondary halo, driven by the active theme's primary/chart-5
+   accents so it stays coherent across every color theme rather than a
+   hardcoded palette. Purely decorative. */
 .ambient-field {
   position: fixed;
   inset: 0;
@@ -213,24 +214,37 @@
 .ambient-field::after {
   content: "";
   position: absolute;
-  width: min(60vw, 900px);
-  height: min(60vw, 900px);
   border-radius: 9999px;
-  filter: blur(120px);
-  opacity: 0.28;
   will-change: transform;
 }
 
 .ambient-field::before {
-  top: -18vw;
-  left: -12vw;
-  background: color-mix(in oklab, var(--primary) 65%, transparent);
+  top: -32vw;
+  left: 50%;
+  width: min(90vw, 1400px);
+  height: min(60vw, 950px);
+  transform: translateX(-50%);
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--primary) 78%, transparent),
+    transparent 70%
+  );
+  filter: blur(80px);
+  opacity: 0.55;
 }
 
 .ambient-field::after {
-  bottom: -22vw;
-  right: -16vw;
-  background: color-mix(in oklab, var(--chart-5) 55%, transparent);
+  bottom: -18vw;
+  right: -14vw;
+  width: min(55vw, 800px);
+  height: min(55vw, 800px);
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--chart-5) 65%, transparent),
+    transparent 70%
+  );
+  filter: blur(100px);
+  opacity: 0.32;
 }
 
 /* Faint halftone/dot field texture, sitting above the halos. */
@@ -261,10 +275,10 @@
 
 @keyframes ambient-drift-a {
   from {
-    transform: translate(0, 0);
+    transform: translateX(-50%) translateY(0);
   }
   to {
-    transform: translate(4vw, 3vw);
+    transform: translateX(-50%) translateY(2vw);
   }
 }
 
@@ -280,6 +294,15 @@
 @layer components {
   /* Hairline luminous border + glow, used on cards and elevated panels. */
   .surface-glow {
+    background-image: linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--primary) 7%, var(--card)),
+      var(--card) 65%
+    );
+    border-color: color-mix(in oklab, var(--primary) 24%, var(--border));
+    box-shadow:
+      inset 0 1px 0 0 color-mix(in oklab, var(--primary) 18%, transparent),
+      0 12px 32px -28px color-mix(in oklab, var(--primary) 45%, transparent);
     transition:
       border-color 200ms ease,
       box-shadow 200ms ease;
@@ -287,10 +310,32 @@
 
   .surface-glow:hover,
   .surface-glow:focus-within {
-    border-color: color-mix(in oklab, var(--primary) 45%, var(--border));
+    border-color: color-mix(in oklab, var(--primary) 55%, var(--border));
     box-shadow:
-      0 0 0 1px color-mix(in oklab, var(--primary) 20%, transparent),
-      0 16px 40px -24px color-mix(in oklab, var(--primary) 60%, transparent);
+      inset 0 1px 0 0 color-mix(in oklab, var(--primary) 32%, transparent),
+      0 0 0 1px color-mix(in oklab, var(--primary) 25%, transparent),
+      0 20px 48px -24px color-mix(in oklab, var(--primary) 65%, transparent);
+  }
+
+  /* Elevated hero/panel surface: radial top glow + gradient fill, used for
+     the page header and other single-focal-point panels. */
+  .hero-panel {
+    position: relative;
+    border: 1px solid color-mix(in oklab, var(--primary) 32%, var(--border));
+    background:
+      radial-gradient(
+        120% 140% at 50% -20%,
+        color-mix(in oklab, var(--primary) 24%, transparent),
+        transparent 60%
+      ),
+      linear-gradient(
+        180deg,
+        color-mix(in oklab, var(--primary) 9%, var(--card)),
+        var(--card)
+      );
+    box-shadow:
+      inset 0 1px 0 0 color-mix(in oklab, var(--primary) 28%, transparent),
+      0 32px 64px -32px color-mix(in oklab, var(--primary) 55%, transparent);
   }
 
   /* Subtle CTA glow for primary actions, restrained per design system. */
@@ -318,5 +363,18 @@
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
+  }
+
+  /* Quiet nav glow: a faint top-edge highlight + inner gradient wash for
+     fixed panels like the sidebar, echoing the hero-panel treatment. */
+  .nav-glow {
+    position: relative;
+    background-image: radial-gradient(
+      140% 60% at 0% 0%,
+      color-mix(in oklab, var(--primary) 16%, transparent),
+      transparent 60%
+    );
+    box-shadow: inset 1px 0 0 0
+      color-mix(in oklab, var(--primary) 14%, transparent);
   }
 }
