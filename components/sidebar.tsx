@@ -26,6 +26,8 @@ import {
 import { Calendar } from "@/components/ui/calendar";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { IconWell } from "@/components/ui/icon-well";
 import {
   CalendarIcon,
   X,
@@ -153,8 +155,10 @@ const ExternalLinksSection = ({
   const { t } = useTranslation();
   return (
     <div className="space-y-4">
-      <div className="flex items-center gap-2">
-        <TitleIcon className="h-4 w-4" />
+      <div className="flex items-center gap-2.5">
+        <IconWell>
+          <TitleIcon />
+        </IconWell>
         <h2 className="font-semibold">{t(title)}</h2>
       </div>
       <div className="space-y-2">
@@ -187,7 +191,7 @@ function MobileCollapsedSidebar({
   onOpen: (open: boolean) => void;
 }) {
   return (
-    <aside className="fixed top-0 left-0 z-40 flex h-full w-16 flex-col items-center space-y-4 border-r bg-card py-6 md:hidden">
+    <aside className="border-sidebar-border bg-sidebar text-sidebar-foreground fixed top-0 left-0 z-40 flex h-full w-16 flex-col items-center space-y-4 border-r py-6 md:hidden">
       <CollapsedSidebarButton
         variant="ghost"
         icon={Menu}
@@ -279,8 +283,10 @@ function SidebarContent({
       {/* Filters */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Filter className="h-4 w-4" />
+          <div className="flex items-center gap-2.5">
+            <IconWell>
+              <Filter />
+            </IconWell>
             <h2 className="font-semibold">{t("filters")}</h2>
           </div>
           <div className="flex items-center gap-2">
@@ -500,8 +506,10 @@ function SidebarContent({
       {/* Sorting */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <ArrowUpDown className="h-4 w-4" />
+          <div className="flex items-center gap-2.5">
+            <IconWell>
+              <ArrowUpDown />
+            </IconWell>
             <h2 className="font-semibold">{t("sorting")}</h2>
           </div>
         </div>
@@ -575,14 +583,18 @@ export default function Sidebar({
       <MobileCollapsedSidebar onOpen={setMobileOpen} />
 
       {/* Desktop sidebar */}
-      <aside className="fixed top-0 left-0 z-40 hidden h-screen w-64 flex-col space-y-6 overflow-y-auto border-r bg-card p-6 md:flex">
-        <SidebarContent
-          filters={filters}
-          updateFilter={updateFilter}
-          clearFilters={clearFilters}
-          uniqueTopics={uniqueTopics}
-          availableLocations={availableLocations}
-        />
+      <aside className="border-sidebar-border bg-sidebar text-sidebar-foreground nav-glow fixed top-0 left-0 z-40 hidden h-screen w-64 flex-col border-r md:flex">
+        <ScrollArea className="min-h-0 flex-1" viewportClassName="p-6">
+          <div className="space-y-6">
+            <SidebarContent
+              filters={filters}
+              updateFilter={updateFilter}
+              clearFilters={clearFilters}
+              uniqueTopics={uniqueTopics}
+              availableLocations={availableLocations}
+            />
+          </div>
+        </ScrollArea>
       </aside>
 
       {/* Mobile overlay sidebar */}
@@ -595,14 +607,18 @@ export default function Sidebar({
           />
 
           {/* Sidebar */}
-          <aside className="fixed top-0 left-0 z-50 h-full w-80 space-y-6 overflow-y-auto border-r bg-card p-6 animate-in slide-in-from-left duration-300 md:hidden">
-            <SidebarContent
-              filters={filters}
-              updateFilter={updateFilter}
-              clearFilters={clearFilters}
-              uniqueTopics={uniqueTopics}
-              availableLocations={availableLocations}
-            />
+          <aside className="border-sidebar-border bg-sidebar text-sidebar-foreground nav-glow animate-in slide-in-from-left fixed top-0 left-0 z-50 flex h-full w-80 flex-col border-r duration-300 md:hidden">
+            <ScrollArea className="min-h-0 flex-1" viewportClassName="p-6">
+              <div className="space-y-6">
+                <SidebarContent
+                  filters={filters}
+                  updateFilter={updateFilter}
+                  clearFilters={clearFilters}
+                  uniqueTopics={uniqueTopics}
+                  availableLocations={availableLocations}
+                />
+              </div>
+            </ScrollArea>
           </aside>
         </>
       )}

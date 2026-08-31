@@ -20,6 +20,7 @@ import { cn } from "@/lib/utils";
 import { useThemeStore, AVAILABLE_THEMES } from "@/lib/theme-store";
 import { getThemePreviewColors } from "@/lib/theme-utils";
 import { useTranslation } from "@/contexts/translation-context";
+import { IconWell } from "@/components/ui/icon-well";
 
 export function ThemeSwitcher() {
   const [open, setOpen] = useState(false);
@@ -44,8 +45,10 @@ export function ThemeSwitcher() {
     <div className="space-y-4">
       {/* Header con icona e Toggle Dark/Light */}
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Palette className="h-4 w-4" />
+        <div className="flex items-center gap-2.5">
+          <IconWell>
+            <Palette />
+          </IconWell>
           <h2 className="font-semibold">{t("theme")}</h2>
         </div>
         <Button

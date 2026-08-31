@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Merriweather } from "next/font/google";
 import "./globals.css";
 import { StructuredData } from "@/components/structured-data";
+import { AmbientBackground } from "@/components/ambient-background";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TranslationProvider } from "@/contexts/translation-context";
 import { cookies } from "next/headers";
@@ -170,7 +171,10 @@ export default async function RootLayout({
         className={`font-sans antialiased ${inter.variable} ${jetbrainsMono.variable} ${merriweather.variable}`}
       >
         <TranslationProvider>
-          <ThemeProvider>{children}</ThemeProvider>
+          <ThemeProvider>
+            <AmbientBackground />
+            {children}
+          </ThemeProvider>
         </TranslationProvider>
       </body>
     </html>
