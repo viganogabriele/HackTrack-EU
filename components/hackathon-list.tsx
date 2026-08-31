@@ -18,6 +18,7 @@ import {
   MapPin,
   Calendar as CalendarIcon,
   Sparkles,
+  SearchX,
 } from "lucide-react";
 import { ExportCalendarDropdown } from "@/components/export-calendar-dropdown";
 import { ShareHackathonDropdown } from "@/components/share-hackathon-dropdown";
@@ -111,14 +112,8 @@ export default function HackathonList({
 
   const HackathonCard = ({ hackathon }: { hackathon: Hackathon }) => {
     const { t, formatDateRange } = useTranslation();
-    // DEBUG: log resolution for badge.new during runtime to diagnose missing translations
-    if (typeof window !== "undefined") {
-      try {
-        console.debug("[i18n-debug] badge.new ->", t("badge.new"));
-      } catch {}
-    }
     return (
-      <Card className="flex h-full flex-col transition-all duration-200 hover:shadow-lg">
+      <Card className="flex h-full flex-col">
         <CardHeader>
           <div className="flex items-start justify-between gap-2">
             <CardTitle className="line-clamp-2 flex-1">
@@ -194,7 +189,10 @@ export default function HackathonList({
         <CardFooter className="flex flex-col gap-2">
           {filters.status === "upcoming" && (
             <>
-              <Button asChild className="w-full">
+              <Button
+                asChild
+                className="from-primary to-chart-3 w-full bg-gradient-to-r hover:opacity-90"
+              >
                 <Link
                   href={hackathon.url}
                   target="_blank"
@@ -283,14 +281,19 @@ export default function HackathonList({
           {t("header.hackathons")}
         </h2>
         <p className="text-muted-foreground">
-          {currentHackathons.length}{" "}
+          <span className="text-primary font-semibold">
+            {currentHackathons.length}
+          </span>{" "}
           {t("header.found", { count: currentHackathons.length })}
         </p>
       </div>
 
       {currentHackathons.length === 0 ? (
-        <div className="py-8 text-center text-muted-foreground">
-          <p>{t("noResults.message")}</p>
+        <div className="flex flex-col items-center gap-3 py-16 text-center">
+          <div className="border-border/70 bg-accent text-accent-foreground flex size-12 items-center justify-center rounded-full border">
+            <SearchX className="size-5" />
+          </div>
+          <p className="text-muted-foreground">{t("noResults.message")}</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">

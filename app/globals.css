@@ -167,6 +167,35 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Thin, theme-tinted scrollbars for native overflow containers
+     (select/command/dropdown popovers, the html scrollbar, etc.) so
+     nothing falls back to a stock OS scrollbar on this canvas. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in oklab, var(--primary) 45%, var(--border))
+      transparent;
+  }
+
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: color-mix(in oklab, var(--primary) 45%, var(--border));
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background-color: color-mix(in oklab, var(--primary) 70%, var(--border));
+  }
 }
 
 /* Ambient decorative background: two blurred halos driven by the active
@@ -202,6 +231,23 @@
   bottom: -22vw;
   right: -16vw;
   background: color-mix(in oklab, var(--chart-5) 55%, transparent);
+}
+
+/* Faint halftone/dot field texture, sitting above the halos. */
+.ambient-field .ambient-dots {
+  position: absolute;
+  inset: 0;
+  opacity: 0.5;
+  background-image: radial-gradient(
+    color-mix(in oklab, var(--foreground) 35%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 28px 28px;
+  mask-image: radial-gradient(
+    ellipse 80% 60% at 50% 0%,
+    black 0%,
+    transparent 70%
+  );
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -259,5 +305,18 @@
     box-shadow:
       0 0 0 1px color-mix(in oklab, var(--primary) 55%, transparent),
       0 10px 32px -10px color-mix(in oklab, var(--primary) 80%, transparent);
+  }
+
+  /* Restrained luminous headline gradient, built from theme accents. */
+  .text-glow-gradient {
+    background: linear-gradient(
+      90deg,
+      var(--foreground),
+      color-mix(in oklab, var(--primary) 65%, var(--foreground)) 55%,
+      var(--chart-5)
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
   }
 }

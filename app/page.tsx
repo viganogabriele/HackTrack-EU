@@ -83,10 +83,12 @@ export default function Home() {
           uniqueTopics={uniqueTopics}
         />
         <main className="ml-16 flex-1 p-8 md:ml-60">
-          {/* Translated header and subtitle */}
-          <TranslatedHeader />
-          <Separator className="my-6" />
-          <HackathonList upcoming={upcoming} past={past} loading={loading} />
+          <div className="mx-auto max-w-[1600px]">
+            {/* Translated header and subtitle */}
+            <TranslatedHeader />
+            <Separator className="my-6" />
+            <HackathonList upcoming={upcoming} past={past} loading={loading} />
+          </div>
         </main>
       </div>
     </FilterProvider>
@@ -98,7 +100,7 @@ function TranslatedHeader() {
   return (
     <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
       <div>
-        <h1 className="mb-3 text-3xl font-bold tracking-tight md:text-4xl">
+        <h1 className="text-glow-gradient mb-3 text-3xl font-bold tracking-tight md:text-4xl">
           {t("title")}
         </h1>
         <p className="text-muted-foreground">{t("subtitle")}</p>
