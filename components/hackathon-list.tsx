@@ -127,7 +127,7 @@ export default function HackathonList({
             {hackathon.is_new && (
               <Badge
                 variant="default"
-                className="shrink-0 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white shadow-sm"
+                className="from-primary to-chart-5 action-glow shrink-0 bg-gradient-to-r text-white"
               >
                 <Sparkles className="mr-1 h-3 w-3" />
                 {t("badge.new")}

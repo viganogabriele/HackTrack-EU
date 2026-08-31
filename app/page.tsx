@@ -98,7 +98,9 @@ function TranslatedHeader() {
   return (
     <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
       <div>
-        <h1 className="mb-3 text-3xl font-bold">{t("title")}</h1>
+        <h1 className="mb-3 text-3xl font-bold tracking-tight md:text-4xl">
+          {t("title")}
+        </h1>
         <p className="text-muted-foreground">{t("subtitle")}</p>
       </div>
       <div className="flex items-center md:ml-auto">

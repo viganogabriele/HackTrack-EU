@@ -187,7 +187,7 @@ function MobileCollapsedSidebar({
   onOpen: (open: boolean) => void;
 }) {
   return (
-    <aside className="fixed top-0 left-0 z-40 flex h-full w-16 flex-col items-center space-y-4 border-r bg-card py-6 md:hidden">
+    <aside className="border-sidebar-border bg-sidebar text-sidebar-foreground fixed top-0 left-0 z-40 flex h-full w-16 flex-col items-center space-y-4 border-r py-6 md:hidden">
       <CollapsedSidebarButton
         variant="ghost"
         icon={Menu}
@@ -575,7 +575,7 @@ export default function Sidebar({
       <MobileCollapsedSidebar onOpen={setMobileOpen} />
 
       {/* Desktop sidebar */}
-      <aside className="fixed top-0 left-0 z-40 hidden h-screen w-64 flex-col space-y-6 overflow-y-auto border-r bg-card p-6 md:flex">
+      <aside className="border-sidebar-border bg-sidebar text-sidebar-foreground fixed top-0 left-0 z-40 hidden h-screen w-64 flex-col space-y-6 overflow-y-auto border-r p-6 md:flex">
         <SidebarContent
           filters={filters}
           updateFilter={updateFilter}
@@ -595,7 +595,7 @@ export default function Sidebar({
           />
 
           {/* Sidebar */}
-          <aside className="fixed top-0 left-0 z-50 h-full w-80 space-y-6 overflow-y-auto border-r bg-card p-6 animate-in slide-in-from-left duration-300 md:hidden">
+          <aside className="border-sidebar-border bg-sidebar text-sidebar-foreground animate-in slide-in-from-left fixed top-0 left-0 z-50 h-full w-80 space-y-6 overflow-y-auto border-r p-6 duration-300 md:hidden">
             <SidebarContent
               filters={filters}
               updateFilter={updateFilter}

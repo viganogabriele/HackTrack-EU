@@ -168,3 +168,96 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Ambient decorative background: two blurred halos driven by the active
+   theme's primary/chart-5 accents, so it stays coherent across every
+   color theme rather than a hardcoded palette. Purely decorative. */
+.ambient-field {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ambient-field::before,
+.ambient-field::after {
+  content: "";
+  position: absolute;
+  width: min(60vw, 900px);
+  height: min(60vw, 900px);
+  border-radius: 9999px;
+  filter: blur(120px);
+  opacity: 0.28;
+  will-change: transform;
+}
+
+.ambient-field::before {
+  top: -18vw;
+  left: -12vw;
+  background: color-mix(in oklab, var(--primary) 65%, transparent);
+}
+
+.ambient-field::after {
+  bottom: -22vw;
+  right: -16vw;
+  background: color-mix(in oklab, var(--chart-5) 55%, transparent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ambient-field::before {
+    animation: ambient-drift-a 28s ease-in-out infinite alternate;
+  }
+  .ambient-field::after {
+    animation: ambient-drift-b 34s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes ambient-drift-a {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(4vw, 3vw);
+  }
+}
+
+@keyframes ambient-drift-b {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(-3vw, -4vw);
+  }
+}
+
+@layer components {
+  /* Hairline luminous border + glow, used on cards and elevated panels. */
+  .surface-glow {
+    transition:
+      border-color 200ms ease,
+      box-shadow 200ms ease;
+  }
+
+  .surface-glow:hover,
+  .surface-glow:focus-within {
+    border-color: color-mix(in oklab, var(--primary) 45%, var(--border));
+    box-shadow:
+      0 0 0 1px color-mix(in oklab, var(--primary) 20%, transparent),
+      0 16px 40px -24px color-mix(in oklab, var(--primary) 60%, transparent);
+  }
+
+  /* Subtle CTA glow for primary actions, restrained per design system. */
+  .action-glow {
+    box-shadow:
+      0 0 0 1px color-mix(in oklab, var(--primary) 35%, transparent),
+      0 8px 24px -12px color-mix(in oklab, var(--primary) 65%, transparent);
+    transition: box-shadow 200ms ease;
+  }
+
+  .action-glow:hover {
+    box-shadow:
+      0 0 0 1px color-mix(in oklab, var(--primary) 55%, transparent),
+      0 10px 32px -10px color-mix(in oklab, var(--primary) 80%, transparent);
+  }
+}
